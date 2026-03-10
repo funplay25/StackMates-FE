@@ -1,21 +1,29 @@
 import axios from "axios";
 import { useState } from "react";
+import { BE_BASE_URL } from "../utils/constants";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
+import bgImg from "../assets/bg-pic.jpg";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("elon@gmail.com");
   const [password, setPassword] = useState("Elon1!");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:3000/login",
+        BE_BASE_URL + "/login",
         {
           email: email,
           password: password,
         },
         { withCredentials: true },
       );
-      console.log(res.data);
+      dispatch(addUser(res.data));
+      return navigate("/");
     } catch (err) {
       console.error(err);
     }
@@ -23,7 +31,13 @@ const Login = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8">
+      <img
+        src={bgImg}
+        alt="backround image"
+        className="h-screen w-screen object-cover absolute"
+      />
+
+      <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 z-50">
         <header className="mb-6">
           <h2 className="text-2xl font-bold text-gray-800">Login</h2>
           <p className="text-gray-500 text-sm">Join our community today.</p>
@@ -32,7 +46,7 @@ const Login = () => {
         <form className="space-y-3" onClick={(e) => e.preventDefault()}>
           <div>
             <label
-              for="email"
+              htmlFor="email"
               className="block text-sm font-semibold text-gray-700 mb-1"
             >
               Email Address
@@ -49,7 +63,7 @@ const Login = () => {
 
           <div>
             <label
-              for="password"
+              htmlFor="password"
               className="block text-sm font-semibold text-gray-700 mb-1"
             >
               Password

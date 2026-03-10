@@ -1,6 +1,9 @@
+import { useSelector } from "react-redux";
 import logo from "../assets/logo.png";
 
 const NavBar = () => {
+  const user = useSelector((store) => store?.user);
+
   return (
     <div className="absolute">
       <nav className="z-50  h-18 bg-black/20 fixed top-0 left-0 w-full">
@@ -9,9 +12,18 @@ const NavBar = () => {
             <img src={logo} alt="stackMates logo" className="w-46 h-fit" />
           </a>
 
-          <button className="px-6 py-1.5 text-[18px] font-semibold text-white bg-red-600 rounded-full cursor-pointer">
-            <p>Log in</p>
-          </button>
+          {user && (
+            <div className="flex items-center gap-4">
+              <p className="text-white">
+                Welcome! <span className="font-semibold">{user.firstName}</span>
+              </p>
+              <img
+                alt="user profile"
+                src={user.profileUrl}
+                className="w-10 rounded-full"
+              />
+            </div>
+          )}
         </div>
       </nav>
     </div>
