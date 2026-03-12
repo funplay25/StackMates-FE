@@ -42,7 +42,7 @@ const NavBar = () => {
               <img
                 alt="user profile"
                 src={user.profileUrl}
-                className="w-10 rounded-full cursor-pointer"
+                className="h-12 w-12 rounded-full object-cover object-top border-2 border-gray-200 cursor-pointer active:scale-[0.95] transition-all"
                 onClick={() => setDropDown(!dropDown)}
               />
 
