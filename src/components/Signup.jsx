@@ -42,11 +42,8 @@ const Signup = () => {
         <div className="p-8 md:p-10">
           <header className="mb-8 text-center">
             <h2 className="text-3xl font-extrabold text-gray-800 tracking-tight">
-              Welcome Back
+              Build Friendships, <span className="block">Not Just Code.</span>
             </h2>
-            <p className="text-gray-500 mt-2">
-              Enter your details to access your account
-            </p>
           </header>
           <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
             <div>
