@@ -33,9 +33,15 @@ const NavBar = () => {
     <div>
       <nav className="z-50 h-18 bg-black/20 backdrop-blur-md fixed top-0 left-0 w-full">
         <div className="mx-8 py-2 flex items-center justify-between">
-          <Link to="/" className="cursor-pointer">
-            <img src={logo} alt="stackMates logo" className="w-46 h-fit" />
-          </Link>
+          {user ? (
+            <Link to="/" className="cursor-pointer">
+              <img src={logo} alt="stackMates logo" className="w-46 h-fit" />
+            </Link>
+          ) : (
+            <div className="cursor-default">
+              <img src={logo} alt="stackMates logo" className="w-46 h-fit" />
+            </div>
+          )}
 
           {user && (
             <div className="flex items-center gap-4">
