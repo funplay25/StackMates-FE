@@ -109,97 +109,99 @@ const UserCard = ({ persons }) => {
   }
 
   const user = persons[currentIndex];
-  console.log("Render triggered"); // You'll see this only ONCE per card change!
 
   return (
-    <div className="flex items-center flex-col justify-center min-h-screen bg-gray-50 font-sans p-4 overflow-hidden">
-      {/* Draggable Wrapper */}
-      <div
-        key={currentIndex}
-        ref={cardRef}
-        onMouseDown={onStart}
-        onMouseMove={onMove}
-        onMouseUp={onEnd}
-        onMouseLeave={onEnd}
-        onTouchStart={onStart}
-        onTouchMove={onMove}
-        onTouchEnd={onEnd}
-        className={`relative select-none ${isDragging ? "cursor-grabbing" : "cursor-grab"} touch-none`}
-      >
-        {/* Animated Stamps */}
+    user && (
+      <div className="flex items-center flex-col justify-center min-h-screen bg-gray-50 font-sans p-4 overflow-hidden">
+        {/* Draggable Wrapper */}
         <div
-          ref={likeStampRef}
-          className="absolute top-10 left-8 z-20 text-4xl font-black px-4 py-1 border-[5px] border-green-500 text-green-500 rounded-xl -rotate-[20deg] pointer-events-none opacity-0 transition-opacity duration-100"
+          key={currentIndex}
+          ref={cardRef}
+          onMouseDown={onStart}
+          onMouseMove={onMove}
+          onMouseUp={onEnd}
+          onMouseLeave={onEnd}
+          onTouchStart={onStart}
+          onTouchMove={onMove}
+          onTouchEnd={onEnd}
+          className={`relative select-none ${isDragging ? "cursor-grabbing" : "cursor-grab"} touch-none`}
         >
-          INTERESTED
-        </div>
-        <div
-          ref={nopeStampRef}
-          className="absolute top-10 right-8 z-20 text-4xl font-black px-4 py-1 border-[5px] border-red-500 text-red-500 rounded-xl rotate-[20deg] pointer-events-none opacity-0 transition-opacity duration-100"
-        >
-          IGNORE
-        </div>
-
-        {/* Card Body */}
-        <div className="w-[340px] sm:w-[370px] bg-white rounded-[30px] shadow-2xl overflow-hidden border border-gray-100 pointer-events-none">
-          {/* Image Section */}
-          <div className="relative h-[420px]">
-            <img
-              src={user.profileUrl}
-              alt={user.firstName}
-              className="w-full h-full object-cover"
-            />
-            {/* Gradient Overlay */}
-            <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-6 flex flex-col justify-end">
-              <h2 className="text-white text-3xl font-bold">
-                {user.firstName}, <span className="font-light">{user.age}</span>
-              </h2>
-              <span className="text-red-400 text-sm font-bold uppercase mt-1 tracking-widest">
-                {user.gender}
-              </span>
-            </div>
+          {/* Animated Stamps */}
+          <div
+            ref={likeStampRef}
+            className="absolute top-10 left-8 z-20 text-4xl font-black px-4 py-1 border-[5px] border-green-500 text-green-500 rounded-xl -rotate-20 pointer-events-none opacity-0 transition-opacity duration-100"
+          >
+            INTERESTED
+          </div>
+          <div
+            ref={nopeStampRef}
+            className="absolute top-10 right-8 z-20 text-4xl font-black px-4 py-1 border-[5px] border-red-500 text-red-500 rounded-xl rotate-20 pointer-events-none opacity-0 transition-opacity duration-100"
+          >
+            IGNORE
           </div>
 
-          {/* Details Section */}
-          <div className="p-6">
-            <h4 className="text-red-500 uppercase text-[10px] font-black tracking-[0.2em] mb-2">
-              About
-            </h4>
-            <p className="text-gray-600 text-sm leading-relaxed mb-6 h-12 line-clamp-2">
-              {user.about}
-            </p>
-
-            <h4 className="text-red-500 uppercase text-[10px] font-black tracking-[0.2em] mb-2">
-              Skills
-            </h4>
-            <div className="flex flex-wrap gap-2">
-              {user.skills?.map((skill, i) => (
-                <span
-                  key={i}
-                  className="bg-red-50 text-red-500 px-3 py-1 rounded-full text-[10px] font-bold border border-red-100 uppercase"
-                >
-                  {skill}
+          {/* Card Body */}
+          <div className="w-85 sm:w-92.5 bg-white rounded-[30px] shadow-2xl overflow-hidden border border-gray-100 pointer-events-none">
+            {/* Image Section */}
+            <div className="relative h-105">
+              <img
+                src={user.profileUrl}
+                alt={user.firstName}
+                className="w-full h-full object-cover"
+              />
+              {/* Gradient Overlay */}
+              <div className="absolute bottom-0 left-0 right-0 h-40 bg-linear-to-t from-black/90 via-black/40 to-transparent p-6 flex flex-col justify-end">
+                <h2 className="text-white text-3xl font-bold">
+                  {user.firstName},{" "}
+                  <span className="font-light">{user.age}</span>
+                </h2>
+                <span className="text-red-400 text-sm font-bold uppercase mt-1 tracking-widest">
+                  {user.gender}
                 </span>
-              ))}
+              </div>
             </div>
-          </div>
-          <div className="h-2 bg-red-500 w-full" />
-        </div>
-      </div>
 
-      {/* Static Footer (Outside the keyed div so it never re-renders) */}
-      <div className="mt-12 flex flex-col items-center gap-2 pointer-events-none">
-        <div className="flex items-center gap-6">
-          <span className="text-sm font-medium text-red-400 animate-pulse">
-            ← Ignore
-          </span>
-          <div className="h-1 w-1 rounded-full bg-gray-300"></div>
-          <span className="text-sm font-medium text-green-500 animate-pulse">
-            Interested →
-          </span>
+            {/* Details Section */}
+            <div className="p-6">
+              <h4 className="text-red-500 uppercase text-[10px] font-black tracking-[0.2em] mb-2">
+                About
+              </h4>
+              <p className="text-gray-600 text-sm leading-relaxed mb-6 h-12 line-clamp-2">
+                {user.about}
+              </p>
+
+              <h4 className="text-red-500 uppercase text-[10px] font-black tracking-[0.2em] mb-2">
+                Skills
+              </h4>
+              <div className="flex flex-wrap gap-2">
+                {user.skills?.map((skill, i) => (
+                  <span
+                    key={i}
+                    className="bg-red-50 text-red-500 px-3 py-1 rounded-full text-[10px] font-bold border border-red-100 uppercase"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div className="h-2 bg-red-500 w-full" />
+          </div>
+        </div>
+
+        {/* Static Footer (Outside the keyed div so it never re-renders) */}
+        <div className="mt-12 flex flex-col items-center gap-2 pointer-events-none">
+          <div className="flex items-center gap-6">
+            <span className="text-sm font-medium text-red-400 animate-pulse">
+              ← Ignore
+            </span>
+            <div className="h-1 w-1 rounded-full bg-gray-300"></div>
+            <span className="text-sm font-medium text-green-500 animate-pulse">
+              Interested →
+            </span>
+          </div>
         </div>
       </div>
-    </div>
+    )
   );
 };
 
