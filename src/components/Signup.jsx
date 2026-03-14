@@ -30,7 +30,7 @@ const Signup = () => {
   return (
     <div className="relative min-h-screen w-full flex items-center justify-center p-4 bg-gray-900">
       <div
-        className="absolute inset-0 z-0 opacity-60"
+        className="absolute inset-0 z-0 opacity-80"
         style={{
           backgroundImage: `url(${bgImg})`,
           backgroundSize: "cover",
