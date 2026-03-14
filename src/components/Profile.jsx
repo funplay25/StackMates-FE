@@ -5,6 +5,7 @@ import { BE_BASE_URL } from "../utils/constants";
 import UserCardPreview from "./UserCardPreview";
 import Toast from "./Toast";
 import { addUser } from "../utils/userSlice";
+import Loading from "./Loading";
 
 const Profile = () => {
   const user = useSelector((store) => store.user);
@@ -69,7 +70,9 @@ const Profile = () => {
         : formData?.skills || [],
   };
 
-  if (!user || !formData) return <h1>Loading...</h1>;
+  if (!user || !formData) {
+    return <Loading text={"Searching for friends..."} />;
+  }
 
   return (
     <div className="mt-24 mx-4">
@@ -80,114 +83,168 @@ const Profile = () => {
           onClose={() => setShowToast(null)}
         />
       )}
-      <h1 className="text-2xl font-bold text-center mb-8">Edit your profile</h1>
-      <div className="flex flex-row gap-10">
+      <div className="flex flex-row gap-5">
         <div className="w-1/2">
           <form
-            className="p-10 flex flex-col rounded-md shadow-md border border-red-400"
+            className="mx-auto max-w-2xl bg-white p-8 sm:p-10 flex flex-col rounded-3xl shadow-2xl border border-slate-100 transition-all duration-300"
             onSubmit={(e) => e.preventDefault()}
           >
-            <div className="flex  mb-4 flex-col">
-              <label htmlFor="firstname">First Name</label>
-              <input
-                type="text"
-                name="firstName"
-                value={formData.firstName}
-                id="firstname"
-                className="w-1/4 p-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-red-500 focus:border-red-500 text-sm text-gray-900"
-                onChange={handleChange}
-              />
+            <div className="mb-8">
+              <h2 className="text-2xl font-black text-slate-800">
+                Edit Profile
+              </h2>
+              <p className="text-slate-500 text-sm">
+                Update your information to stand out.
+              </p>
             </div>
 
-            <div className="flex  mb-4 flex-col">
-              <label htmlFor="firstname">Last Name</label>
-              <input
-                type="text"
-                name="lastName"
-                value={formData.lastName}
-                id="lastname"
-                className="w-1/4 p-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-red-500 focus:border-red-500 text-sm text-gray-900"
-                onChange={handleChange}
-              />
+            {/* Grid Row for First & Last Name */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+              <div className="flex flex-col gap-2">
+                <label
+                  htmlFor="firstname"
+                  className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1"
+                >
+                  First Name
+                </label>
+                <input
+                  type="text"
+                  name="firstName"
+                  value={formData.firstName}
+                  id="firstname"
+                  placeholder="John"
+                  className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-500 transition-all text-sm text-slate-900"
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <label
+                  htmlFor="lastname"
+                  className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1"
+                >
+                  Last Name
+                </label>
+                <input
+                  type="text"
+                  name="lastName"
+                  value={formData.lastName}
+                  id="lastname"
+                  placeholder="Doe"
+                  className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-500 transition-all text-sm text-slate-900"
+                  onChange={handleChange}
+                />
+              </div>
             </div>
 
-            <div className="flex  mb-4 flex-col">
-              <label htmlFor="age">Age</label>
-              <input
-                id="age"
-                type="text"
-                name="age"
-                value={formData.age}
-                className="w-1/4 p-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-red-500 focus:border-red-500 text-sm text-gray-900"
-                onChange={handleChange}
-              />
+            {/* Grid Row for Age & Gender */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+              <div className="flex flex-col gap-2">
+                <label
+                  htmlFor="age"
+                  className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1"
+                >
+                  Age
+                </label>
+                <input
+                  id="age"
+                  type="number"
+                  name="age"
+                  value={formData.age || ""}
+                  placeholder="24"
+                  className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-500 transition-all text-sm text-slate-900"
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <label
+                  htmlFor="gender"
+                  className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1"
+                >
+                  Gender
+                </label>
+                <select
+                  id="gender"
+                  name="gender"
+                  value={formData.gender}
+                  onChange={handleChange}
+                  className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-500 transition-all text-sm text-slate-900 appearance-none cursor-pointer"
+                >
+                  <option value="" disabled>
+                    Select gender
+                  </option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="others">Others</option>
+                </select>
+              </div>
             </div>
 
-            <div className="flex flex-col gap-1.5 mb-4">
+            {/* Full Width Inputs */}
+            <div className="flex flex-col gap-2 mb-6">
               <label
-                htmlFor="gender"
-                className="text-sm font-medium text-gray-700"
+                htmlFor="profile"
+                className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1"
               >
-                Gender
+                Profile Image URL
               </label>
-              <select
-                id="gender"
-                name="gender"
-                value={formData.gender}
-                onChange={handleChange}
-                className="w-1/4 p-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-red-500 focus:border-red-500 text-sm text-gray-900"
-              >
-                <option value="" disabled>
-                  Select gender
-                </option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="others">Others</option>
-              </select>
-            </div>
-
-            <div className="flex mb-4 flex-col">
-              <label htmlFor="profile">Profile URL</label>
               <input
                 id="profile"
                 type="text"
                 name="profileUrl"
-                value={formData.profileUrl ? formData.profileUrl : "profileUrl"}
-                className="w-full p-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-red-500 focus:border-red-500 text-sm text-gray-900"
+                value={formData.profileUrl}
+                placeholder="https://example.com/photo.jpg"
+                className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-500 transition-all text-sm text-slate-900"
                 onChange={handleChange}
               />
             </div>
 
-            <div className="flex mb-4 flex-col">
-              <label htmlFor="about">About</label>
+            <div className="flex flex-col gap-2 mb-6">
+              <label
+                htmlFor="about"
+                className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1"
+              >
+                About Me
+              </label>
               <textarea
                 id="about"
-                type="text"
                 name="about"
+                rows="3"
                 value={formData.about}
-                className="w-full p-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-red-500 focus:border-red-500 text-sm text-gray-900"
+                placeholder="Tell us something interesting..."
+                className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-500 transition-all text-sm text-slate-900 resize-none"
                 onChange={handleChange}
               />
             </div>
 
-            <div className="flex mb-6 flex-col">
-              <label htmlFor="skills">Skills (separate by commas) </label>
+            <div className="flex flex-col gap-2 mb-8">
+              <label
+                htmlFor="skills"
+                className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1"
+              >
+                Skills{" "}
+                <span className="text-slate-300 font-normal">
+                  (Comma separated)
+                </span>
+              </label>
               <input
                 id="skills"
                 type="text"
                 name="skills"
                 value={formData.skills}
-                className="w-full p-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-red-500 focus:border-red-500 text-sm text-gray-900"
+                placeholder="React, Node.js, Tailwind..."
+                className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-500 transition-all text-sm text-slate-900"
                 onChange={handleChange}
               />
             </div>
 
             <button
               type="submit"
-              className="bg-red-500 text-white px-4 py-2 rounded-md w-1/4 active:scale-[0.95] transition-all cursor-pointer"
+              className="w-full sm:w-max sm:px-12 py-3 bg-red-500 hover:bg-red-600 text-white font-bold rounded-full shadow-lg shadow-red-200 transition-all active:scale-95 self-center cursor-pointer"
               onClick={handleSubmit}
             >
-              Save Profile
+              Save Changes
             </button>
           </form>
         </div>
