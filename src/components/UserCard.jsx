@@ -1,4 +1,6 @@
+import axios from "axios";
 import { useState, useRef } from "react";
+import { BE_BASE_URL } from "../utils/constants";
 
 const UserCard = ({ persons }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -13,6 +15,19 @@ const UserCard = ({ persons }) => {
   const startX = useRef(0);
 
   const threshold = 120;
+
+  // Handling the swipe right or left output
+  const handleSwipeOutput = async (status, toUserId) => {
+    try {
+      await axios.post(
+        BE_BASE_URL + "/request/" + status + "/" + toUserId,
+        {},
+        { withCredentials: true },
+      );
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
 
   // Handlers
   const onStart = (e) => {
@@ -65,6 +80,14 @@ const UserCard = ({ persons }) => {
     if (Math.abs(finalX) > threshold) {
       const flyDistance = finalX > 0 ? 1000 : -1000;
 
+      const currentUser = persons[currentIndex];
+      // Logic to apply when you want the info of if user swiped right or left
+      if (finalX > 0) {
+        handleSwipeOutput("interested", currentUser._id);
+      } else {
+        handleSwipeOutput("ignored", currentUser._id);
+      }
+
       // Fly off screen
       if (cardRef.current) {
         cardRef.current.style.transform = `translateX(${flyDistance}px) rotate(${flyDistance * 0.05}deg)`;
@@ -98,8 +121,8 @@ const UserCard = ({ persons }) => {
             Come back later for more profiles.
           </p>
           <button
-            onClick={() => setCurrentIndex(0)}
-            className="px-8 py-3 bg-red-500 hover:bg-red-600 text-white font-bold rounded-full shadow-lg transition-all active:scale-95"
+            onClick={() => /* write functionality for adding more users in feed */ {}}
+            className="px-8 py-3 bg-red-500 hover:bg-red-600 text-white font-bold rounded-full shadow-lg transition-all active:scale-95 cursor-pointer"
           >
             Find more
           </button>
