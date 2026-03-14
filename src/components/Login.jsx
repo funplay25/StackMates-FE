@@ -7,8 +7,8 @@ import bgImg from "../assets/bg-pic.jpg";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const [email, setEmail] = useState("elon@gmail.com");
-  const [password, setPassword] = useState("Elon1!");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -33,7 +33,7 @@ const Login = () => {
   return (
     <div className="relative min-h-screen w-full flex items-center justify-center p-4 bg-gray-900">
       <div
-        className="absolute inset-0 z-0 opacity-60"
+        className="absolute inset-0 z-0 opacity-80"
         style={{
           backgroundImage: `url(${bgImg})`,
           backgroundSize: "cover",
