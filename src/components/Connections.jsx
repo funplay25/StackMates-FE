@@ -32,7 +32,7 @@ const Connections = () => {
   return (
     <div className="mt-24 px-4">
       <h1 className="font-extrabold text-3xl text-slate-800 text-center mb-8 tracking-tight">
-        Connections
+        {connections.length === 0 ? "No Friends Found" : "Friends"}
       </h1>
 
       {connections.map((user) => {
