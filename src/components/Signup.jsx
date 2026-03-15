@@ -3,6 +3,8 @@ import bgImg from "../assets/bg-pic.jpg";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { BE_BASE_URL } from "../utils/constants";
+import { addUser } from "../utils/userSlice";
+import { useDispatch } from "react-redux";
 
 const Signup = () => {
   const [firstName, setFirstname] = useState("");
@@ -11,17 +13,23 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSignUp = async () => {
     try {
-      await axios.post(BE_BASE_URL + "/signup", {
-        firstName,
-        lastName,
-        email,
-        password,
-      });
+      const res = await axios.post(
+        BE_BASE_URL + "/signup",
+        {
+          firstName,
+          lastName,
+          email,
+          password,
+        },
+        { withCredentials: true },
+      );
 
-      return navigate("/login");
+      dispatch(addUser(res.data));
+      return navigate("/profile");
     } catch (err) {
       setError("User with this email alredy exists.");
     }
