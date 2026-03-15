@@ -23,7 +23,7 @@ const Feed = () => {
   };
 
   useEffect(() => {
-    if (!user?._id || !feed) return;
+    if (!user?._id) return;
     dispatch(removeFeed());
     fetchFeed();
   }, [user?._id]);
