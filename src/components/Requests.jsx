@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addRequests, removeRequest } from "../utils/requestSlice";
 import Loading from "./Loading";
+import { clearConnections } from "../utils/connectionSlice";
 
 const Requests = () => {
   const requests = useSelector((store) => store.requests);
@@ -29,6 +30,7 @@ const Requests = () => {
         { withCredentials: true },
       );
 
+      dispatch(clearConnections());
       dispatch(removeRequest(res.data));
     } catch (err) {
       console.log(err);
