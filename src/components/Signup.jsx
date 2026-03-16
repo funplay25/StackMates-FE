@@ -46,85 +46,95 @@ const Signup = () => {
         }}
       />
 
-      <div className="relative z-10 w-full max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden">
-        <div className="p-8 md:p-10">
-          <header className="mb-8 text-center">
-            <h2 className="text-3xl font-extrabold text-gray-800 tracking-tight">
-              Build Friendships, <span className="block">Not Just Code.</span>
+      <div className="relative z-10 w-full max-w-md bg-white rounded-4xl shadow-2xl overflow-hidden my-8">
+        <div className="p-6 sm:p-8 md:p-10">
+          <header className="mb-6 md:mb-8 text-center">
+            <h2 className="text-2xl md:text-3xl font-extrabold text-gray-800 tracking-tight leading-tight">
+              Build Friendships,{" "}
+              <span className="text-[#f72b20] sm:block">Not Just Code.</span>
             </h2>
           </header>
-          <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
-            <div>
-              <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 ml-1">
-                First Name
-              </label>
-              <input
-                type="text"
-                placeholder="John"
-                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#f72b20] focus:border-transparent outline-none transition-all placeholder:text-gray-400"
-                value={firstName}
-                onChange={(e) => setFirstname(e.target.value)}
-              />
+
+          <form
+            className="space-y-4 md:space-y-5"
+            onSubmit={(e) => e.preventDefault()}
+          >
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1.5 ml-1">
+                  First Name
+                </label>
+                <input
+                  type="text"
+                  placeholder="John"
+                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#f72b20] focus:border-transparent outline-none transition-all placeholder:text-gray-400 text-sm"
+                  value={firstName}
+                  onChange={(e) => setFirstname(e.target.value)}
+                />
+              </div>
+              <div>
+                <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1.5 ml-1">
+                  Last Name
+                </label>
+                <input
+                  type="text"
+                  placeholder="Wick"
+                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#f72b20] focus:border-transparent outline-none transition-all placeholder:text-gray-400 text-sm"
+                  value={lastName}
+                  onChange={(e) => setLastname(e.target.value)}
+                />
+              </div>
             </div>
+
             <div>
-              <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 ml-1">
-                Last Name
-              </label>
-              <input
-                type="text"
-                placeholder="Wick"
-                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#f72b20] focus:border-transparent outline-none transition-all placeholder:text-gray-400"
-                value={lastName}
-                onChange={(e) => setLastname(e.target.value)}
-              />
-            </div>
-            <div>
-              <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 ml-1">
+              <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1.5 ml-1">
                 Email Address
               </label>
               <input
                 type="email"
                 placeholder="you@example.com"
-                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#f72b20] focus:border-transparent outline-none transition-all placeholder:text-gray-400"
+                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#f72b20] focus:border-transparent outline-none transition-all placeholder:text-gray-400 text-sm"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
 
             <div>
-              <div className="flex justify-between items-center mb-2 ml-1">
-                <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider">
-                  Password
-                </label>
-              </div>
+              <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1.5 ml-1">
+                Password
+              </label>
               <input
                 type="password"
                 placeholder="••••••"
-                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#f72b20] focus:border-transparent outline-none transition-all placeholder:text-gray-400"
+                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#f72b20] focus:border-transparent outline-none transition-all placeholder:text-gray-400 text-sm"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
 
-            <p className="text-sm text-red-500 font-semibold">{error}</p>
+            {error && (
+              <p className="text-xs text-red-500 font-semibold px-1">{error}</p>
+            )}
 
             <button
               onClick={handleSignUp}
-              className="w-full bg-[#f72b20] hover:bg-[#d6251b] text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-red-100 active:scale-[0.98] cursor-pointer"
+              className="w-full bg-[#f72b20] hover:bg-[#d6251b] text-white font-bold py-3.5 md:py-4 rounded-xl transition-all shadow-lg shadow-red-100 active:scale-[0.98] cursor-pointer text-sm md:text-base mt-2"
             >
-              Sign Up
+              Create Account
             </button>
           </form>
 
-          <p className="mt-4 text-center text-gray-600 text-sm">
-            Already have account?{" "}
-            <button
-              onClick={() => navigate("/login")}
-              className="text-[#f72b20] font-bold hover:underline underline-offset-4 cursor-pointer"
-            >
-              Log In
-            </button>
-          </p>
+          <footer className="mt-6 text-center">
+            <p className="text-gray-600 text-sm">
+              Already have an account?{" "}
+              <button
+                onClick={() => navigate("/login")}
+                className="text-[#f72b20] font-bold hover:underline underline-offset-4 cursor-pointer"
+              >
+                Log In
+              </button>
+            </p>
+          </footer>
         </div>
       </div>
     </div>

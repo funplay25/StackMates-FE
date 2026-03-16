@@ -75,7 +75,7 @@ const Profile = () => {
   }
 
   return (
-    <div className="mt-24 mx-4">
+    <div className="mt-20 md:mt-24 mx-auto max-w-7xl px-4 md:px-6">
       {showToast && (
         <Toast
           message={showToast.message}
@@ -83,13 +83,14 @@ const Profile = () => {
           onClose={() => setShowToast(null)}
         />
       )}
-      <div className="flex flex-row gap-5">
-        <div className="w-1/2">
+
+      <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start">
+        <div className="w-full lg:w-3/5 order-2 lg:order-1">
           <form
-            className="mx-auto max-w-2xl bg-white p-8 sm:p-10 flex flex-col rounded-3xl shadow-2xl border border-slate-100 transition-all duration-300"
+            className="bg-white p-6 sm:p-10 flex flex-col rounded-3xl shadow-2xl border border-slate-100 transition-all duration-300 mb-4"
             onSubmit={(e) => e.preventDefault()}
           >
-            <div className="mb-8">
+            <div className="mb-8 text-center sm:text-left">
               <h2 className="text-2xl font-black text-slate-800">
                 Edit Profile
               </h2>
@@ -98,8 +99,8 @@ const Profile = () => {
               </p>
             </div>
 
-            {/* Grid Row for First & Last Name */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+            {/* Name Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-6">
               <div className="flex flex-col gap-2">
                 <label
                   htmlFor="firstname"
@@ -137,8 +138,7 @@ const Profile = () => {
               </div>
             </div>
 
-            {/* Grid Row for Age & Gender */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-6">
               <div className="flex flex-col gap-2">
                 <label
                   htmlFor="age"
@@ -164,24 +164,40 @@ const Profile = () => {
                 >
                   Gender
                 </label>
-                <select
-                  id="gender"
-                  name="gender"
-                  value={formData.gender}
-                  onChange={handleChange}
-                  className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-500 transition-all text-sm text-slate-900 appearance-none cursor-pointer"
-                >
-                  <option value="" disabled>
-                    Select gender
-                  </option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                  <option value="others">Others</option>
-                </select>
+                <div className="relative">
+                  <select
+                    id="gender"
+                    name="gender"
+                    value={formData.gender}
+                    onChange={handleChange}
+                    className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-500 transition-all text-sm text-slate-900 appearance-none cursor-pointer"
+                  >
+                    <option value="" disabled>
+                      Select gender
+                    </option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="others">Others</option>
+                  </select>
+                  <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+                    <svg
+                      className="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </div>
+                </div>
               </div>
             </div>
 
-            {/* Full Width Inputs */}
             <div className="flex flex-col gap-2 mb-6">
               <label
                 htmlFor="profile"
@@ -241,14 +257,20 @@ const Profile = () => {
 
             <button
               type="submit"
-              className="w-full sm:w-max sm:px-12 py-3 bg-red-500 hover:bg-red-600 text-white font-bold rounded-full shadow-lg shadow-red-200 transition-all active:scale-95 self-center cursor-pointer"
+              className="w-full sm:w-max sm:px-12 py-3 bg-red-500 hover:bg-red-600 text-white font-bold rounded-full shadow-lg shadow-red-200 transition-all active:scale-95 self-center sm:self-start cursor-pointer"
               onClick={handleSubmit}
             >
               Save Changes
             </button>
           </form>
         </div>
-        <div className="w-1/2">
+
+        <div className="w-full lg:w-2/5 order-1 lg:order-2 lg:sticky lg:top-24">
+          <div className="mb-4 lg:hidden">
+            <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 text-center">
+              Live Preview
+            </p>
+          </div>
           <UserCardPreview user={previewData} />
         </div>
       </div>

@@ -34,49 +34,50 @@ const NavBar = () => {
   }, []);
 
   return (
-    <nav className="fixed top-0 left-0 w-full h-20 z-50 bg-white/80 backdrop-blur-md border-b border-white/20 shadow-sm">
-      <div className="max-w-7xl mx-auto h-full px-6 flex items-center justify-between">
+    <nav className="fixed top-0 left-0 w-full h-16 md:h-20 z-50 bg-white/80 backdrop-blur-md border-b border-white/20 shadow-sm">
+      <div className="max-w-7xl mx-auto h-full px-4 md:px-6 flex items-center justify-between">
         <div className="shrink-0">
           {user ? (
             <Link to="/" className="block hover:opacity-80 transition-opacity">
               <img
                 src={logo}
                 alt="stackMates logo"
-                className="w-40 h-auto object-contain"
+                className="w-28 md:w-40 h-auto object-contain"
               />
             </Link>
           ) : (
             <img
               src={logo}
               alt="stackMates logo"
-              className="w-40 h-auto object-contain"
+              className="w-28 md:w-40 h-auto object-contain"
             />
           )}
         </div>
 
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-3 md:gap-6">
           {user && (
             <div className="relative">
               <button
                 onClick={() => setDropDown(!dropDown)}
                 className={`flex items-center p-0.5 rounded-full transition-all duration-300 outline-none
-              ${dropDown ? "ring-4 ring-red-500/10" : "hover:ring-4 hover:ring-gray-100"}`}
+          ${dropDown ? "ring-4 ring-red-500/10" : "hover:ring-4 hover:ring-gray-100"}`}
               >
                 <img
                   alt="user profile"
                   src={user.profileUrl}
-                  className="h-11 w-11 rounded-full object-cover object-top border-2 border-white shadow-sm cursor-pointer"
+                  className="h-9 w-9 md:h-11 md:w-11 rounded-full object-cover object-top border-2 border-white shadow-sm cursor-pointer"
                 />
               </button>
 
               {dropDown && (
                 <>
+                  {/* Overlay to close dropdown */}
                   <div
                     className="fixed inset-0 z-[-1]"
                     onClick={() => setDropDown(false)}
                   ></div>
 
-                  <div className="absolute right-0 top-14 w-64 bg-white rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] border border-gray-100 overflow-hidden animate-in fade-in zoom-in-95 duration-200 origin-top-right">
+                  <div className="absolute right-0 top-12 md:top-14 w-64 bg-white rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] border border-gray-100 overflow-hidden animate-in fade-in zoom-in-95 duration-200 origin-top-right">
                     <div className="px-5 py-4 bg-gray-50/50 border-b border-gray-100">
                       <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.15em] mb-1">
                         Logged in as
@@ -193,7 +194,7 @@ const NavBar = () => {
 
           {signUpPage && !user && (
             <button
-              className="px-6 py-2.5 text-sm font-bold text-white bg-red-600 hover:bg-red-700 rounded-full shadow-lg shadow-red-200 transition-all active:scale-95 cursor-pointer"
+              className="px-4 md:px-6 py-2 md:py-2.5 text-xs md:text-sm font-bold text-white bg-red-600 hover:bg-red-700 rounded-full shadow-lg shadow-red-200 transition-all active:scale-95 cursor-pointer"
               onClick={() => navigate("/login")}
             >
               Log in

@@ -1,14 +1,14 @@
 const Loading = ({ text }) => {
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-white overflow-hidden">
-      <div className="relative flex items-center justify-center">
+    <div className="flex flex-col items-center justify-center min-h-screen w-full bg-white overflow-hidden p-6">
+      <div className="relative flex items-center justify-center scale-90 sm:scale-100 transition-transform">
         <div className="absolute w-20 h-20 bg-red-500 rounded-full animate-radar delay-1"></div>
         <div className="absolute w-20 h-20 bg-red-500 rounded-full animate-radar delay-2"></div>
         <div className="absolute w-20 h-20 bg-red-500 rounded-full animate-radar delay-3"></div>
 
-        <div className="relative z-10 flex items-center justify-center w-24 h-24 bg-white rounded-full shadow-xl">
+        <div className="relative z-10 flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 bg-white rounded-full shadow-2xl border border-slate-50">
           <svg
-            className="w-12 h-12 text-red-500 animate-heartbeat"
+            className="w-10 h-10 sm:w-12 sm:h-12 text-red-500 animate-heartbeat"
             fill="currentColor"
             viewBox="0 0 24 24"
           >
@@ -17,7 +17,7 @@ const Loading = ({ text }) => {
         </div>
       </div>
 
-      <p className="mt-16 text-red-500 font-medium tracking-wider animate-pulse">
+      <p className="mt-12 sm:mt-16 text-red-500 text-xs sm:text-sm font-black uppercase tracking-[0.2em] animate-pulse text-center max-w-xs">
         {text}
       </p>
     </div>

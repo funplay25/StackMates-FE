@@ -30,50 +30,64 @@ const Connections = () => {
   if (!connections) return <Loading text={"Loading..."} />;
 
   return (
-    <div className="mt-24 px-4">
-      <h1 className="font-extrabold text-3xl text-slate-800 text-center mb-8 tracking-tight">
-        {connections.length === 0 ? "No Friends Found" : "Friends"}
-      </h1>
+    <div className="mt-20 md:mt-24 px-4 pb-16 max-w-3xl mx-auto">
+      <header className="mb-8 text-center sm:text-left">
+        <h1 className="font-black text-2xl md:text-3xl text-slate-800 tracking-tight">
+          {connections.length === 0 ? "No Friends Yet" : "Your Connections"}
+        </h1>
+        <p className="text-slate-500 text-sm mt-1">
+          {connections.length > 0 ? (
+            <p>
+              You have <span className="font-bold">{connections.length}</span>{" "}
+              friends in your network
+            </p>
+          ) : (
+            "Time to start swiping!"
+          )}
+        </p>
+      </header>
 
-      {connections.map((user) => {
-        return (
+      <div className="grid grid-cols-1 gap-3">
+        {connections.map((user) => (
           <div
             key={user._id}
-            className="mx-auto max-w-2xl bg-white p-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm border border-slate-100 rounded-2xl hover:border-red-100 hover:shadow-md transition-all duration-300 mb-3 group"
+            className="bg-white p-3.5 md:p-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm border border-slate-100 rounded-2xl hover:border-red-100 hover:shadow-md transition-all duration-300 group"
           >
-            <div className="flex items-center gap-4 flex-1 w-full">
+            <div className="flex items-center gap-4 w-full flex-1 min-w-0">
               <div className="relative shrink-0">
                 <img
                   src={user.profileUrl}
                   alt={`${user.firstName}'s profile`}
-                  className="w-14 h-14 rounded-full object-cover object-top ring-2 ring-slate-50 shadow-sm"
+                  className="w-12 h-12 md:w-14 md:h-14 rounded-full object-cover object-top ring-2 ring-slate-50 group-hover:ring-red-100 transition-all"
                 />
-
-                {/* Optional: Online status dot */}
-                {/* <div className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-green-500 border-2 border-white rounded-full"></div> */}
+                <div className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-green-500 border-2 border-white rounded-full"></div>
               </div>
 
-              <div className="flex flex-col">
-                <h2 className="font-bold text-slate-800 text-base capitalize group-hover:text-red-500 transition-colors">
+              <div className="flex flex-col min-w-0">
+                <h2 className="font-bold text-slate-800 text-sm md:text-base capitalize group-hover:text-red-500 transition-colors truncate">
                   {user.firstName} {user.lastName}
                 </h2>
-                <p className="text-slate-500 text-xs line-clamp-1 italic">
-                  {user.about || "No status provided"}
+                <p className="text-slate-500 text-[11px] md:text-xs line-clamp-1 italic pr-4">
+                  {user.about || "Building something cool..."}
                 </p>
               </div>
             </div>
 
-            <div className="flex items-center gap-2 w-full sm:w-auto">
+            <div className="flex items-center gap-2 w-full sm:w-auto mt-1 sm:mt-0">
               <button
-                className="flex-1 sm:flex-none px-4 py-2 text-xs font-bold rounded-lg bg-slate-50 text-slate-600 hover:bg-slate-100 transition-colors cursor-pointer"
-                onClick={() => /* Navigate to friends profile */ {}}
+                className="flex-1 sm:flex-none px-4 py-2.5 text-[11px] md:text-xs font-bold rounded-xl bg-slate-50 text-slate-500 hover:bg-slate-100 hover:text-slate-700 transition-all cursor-pointer"
+                onClick={() => {
+                  /* Navigate */
+                }}
               >
-                View Profile
+                Profile
               </button>
 
               <button
-                className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-5 py-2 text-xs font-bold rounded-lg bg-red-500 text-white hover:bg-red-600 shadow-sm shadow-red-100 transition-all active:scale-95 cursor-pointer"
-                onClick={() => /* Open Chat Functionality */ {}}
+                className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-5 py-2.5 text-[11px] md:text-xs font-bold rounded-xl bg-red-500 text-white hover:bg-red-600 shadow-sm shadow-red-100 transition-all active:scale-95 cursor-pointer"
+                onClick={() => {
+                  /* Open Chat */
+                }}
               >
                 <svg
                   className="w-3.5 h-3.5"
@@ -92,8 +106,8 @@ const Connections = () => {
               </button>
             </div>
           </div>
-        );
-      })}
+        ))}
+      </div>
     </div>
   );
 };

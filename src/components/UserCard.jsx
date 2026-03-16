@@ -112,17 +112,19 @@ const UserCard = ({ persons }) => {
   // Empty state check
   if (!persons || currentIndex >= persons.length) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 p-4 font-sans text-center">
-        <div className="bg-white p-8 rounded-3xl shadow-xl">
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 p-6 font-sans text-center">
+        <div className="bg-white p-8 md:p-12 rounded-[2.5rem] shadow-xl max-w-sm w-full transition-all">
+          <div className="text-5xl mb-4">🎉</div>
           <h2 className="text-2xl font-black text-gray-800 mb-2">
             That's everyone!
           </h2>
-          <p className="text-gray-500 mb-6">
-            Come back later for more profiles.
+          <p className="text-gray-500 mb-8 text-sm">
+            You've seen all the stacks for now. Come back later for fresh
+            profiles.
           </p>
           <button
-            onClick={() => /* write functionality for adding more users in feed */ {}}
-            className="px-8 py-3 bg-red-500 hover:bg-red-600 text-white font-bold rounded-full shadow-lg transition-all active:scale-95 cursor-pointer"
+            onClick={() => {}}
+            className="w-full py-4 bg-red-500 hover:bg-red-600 text-white font-bold rounded-2xl shadow-lg shadow-red-200 transition-all active:scale-95 cursor-pointer"
           >
             Find more
           </button>
@@ -136,7 +138,6 @@ const UserCard = ({ persons }) => {
   return (
     user && (
       <div className="flex items-center flex-col justify-center min-h-screen bg-gray-50 font-sans p-4 overflow-hidden">
-        {/* Draggable Wrapper */}
         <div
           key={currentIndex}
           ref={cardRef}
@@ -147,79 +148,74 @@ const UserCard = ({ persons }) => {
           onTouchStart={onStart}
           onTouchMove={onMove}
           onTouchEnd={onEnd}
-          className={`relative select-none ${isDragging ? "cursor-grabbing" : "cursor-grab"} touch-none`}
+          className={`relative select-none ${isDragging ? "cursor-grabbing" : "cursor-grab"} touch-none transition-transform duration-75`}
         >
-          {/* Animated Stamps */}
           <div
             ref={likeStampRef}
-            className="absolute top-10 left-8 z-20 text-4xl font-black px-4 py-1 border-[5px] border-green-500 text-green-500 rounded-xl -rotate-20 pointer-events-none opacity-0 transition-opacity duration-100"
+            className="absolute top-12 left-6 z-20 text-2xl md:text-4xl font-black px-4 py-1 border-4 md:border-[5px] border-green-500 text-green-500 rounded-xl -rotate-20 pointer-events-none opacity-0 whitespace-nowrap"
           >
             INTERESTED
           </div>
           <div
             ref={nopeStampRef}
-            className="absolute top-10 right-8 z-20 text-4xl font-black px-4 py-1 border-[5px] border-red-500 text-red-500 rounded-xl rotate-20 pointer-events-none opacity-0 transition-opacity duration-100"
+            className="absolute top-12 right-6 z-20 text-2xl md:text-4xl font-black px-4 py-1 border-4 md:border-[5px] border-red-500 text-red-500 rounded-xl rotate-20 pointer-events-none opacity-0 whitespace-nowrap"
           >
             IGNORE
           </div>
 
-          {/* Card Body */}
-          <div className="w-85 sm:w-92.5 bg-white rounded-[30px] shadow-2xl overflow-hidden border border-gray-100 pointer-events-none">
-            {/* Image Section */}
-            <div className="relative h-105">
+          <div className="w-[88vw] max-w-95 bg-white rounded-[30px] md:rounded-[40px] shadow-2xl overflow-hidden border border-gray-100 pointer-events-none flex flex-col">
+            <div className="relative h-[45vh] md:h-125 min-h-87.5">
               <img
                 src={user.profileUrl}
                 alt={user.firstName}
                 className="w-full h-full object-cover"
               />
-              {/* Gradient Overlay */}
-              <div className="absolute bottom-0 left-0 right-0 h-40 bg-linear-to-t from-black/90 via-black/40 to-transparent p-6 flex flex-col justify-end">
-                <h2 className="text-white text-3xl font-bold">
+
+              <div className="absolute bottom-0 left-0 right-0 h-48 bg-linear-to-t from-black/90 via-black/40 to-transparent p-6 md:p-8 flex flex-col justify-end">
+                <h2 className="text-white text-2xl md:text-3xl font-bold">
                   {user.firstName},{" "}
                   <span className="font-light">{user.age}</span>
                 </h2>
-                <span className="text-red-400 text-sm font-bold uppercase mt-1 tracking-widest">
+                <span className="text-red-400 text-xs md:text-sm font-black uppercase mt-1 tracking-[0.2em]">
                   {user.gender}
                 </span>
               </div>
             </div>
 
-            {/* Details Section */}
-            <div className="p-6">
-              <h4 className="text-red-500 uppercase text-[10px] font-black tracking-[0.2em] mb-2">
+            <div className="p-5 md:p-8 bg-white">
+              <h4 className="text-red-500 uppercase text-[9px] md:text-[10px] font-black tracking-[0.2em] mb-2 opacity-70">
                 About
               </h4>
-              <p className="text-gray-600 text-sm leading-relaxed mb-6 h-12 line-clamp-2">
+              <p className="text-gray-600 text-sm leading-relaxed mb-5 h-10 line-clamp-2">
                 {user.about}
               </p>
 
-              <h4 className="text-red-500 uppercase text-[10px] font-black tracking-[0.2em] mb-2">
-                Skills
+              <h4 className="text-red-500 uppercase text-[9px] md:text-[10px] font-black tracking-[0.2em] mb-2 opacity-70">
+                Top Skills
               </h4>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-1.5 md:gap-2">
                 {user.skills?.map((skill, i) => (
                   <span
                     key={i}
-                    className="bg-red-50 text-red-500 px-3 py-1 rounded-full text-[10px] font-bold border border-red-100 uppercase"
+                    className="bg-red-50 text-red-500 px-3 py-1 rounded-lg text-[10px] font-bold border border-red-100/50 uppercase tracking-tighter"
                   >
                     {skill}
                   </span>
                 ))}
               </div>
             </div>
-            <div className="h-2 bg-red-500 w-full" />
+            <div className="h-1.5 md:h-2 bg-red-500 w-full" />
           </div>
         </div>
 
-        {/* Static Footer (Outside the keyed div so it never re-renders) */}
-        <div className="mt-12 flex flex-col items-center gap-2 pointer-events-none">
+        <div className="mt-8 md:mt-12 hidden xs:flex flex-col items-center gap-2 pointer-events-none select-none">
           <div className="flex items-center gap-6">
-            <span className="text-sm font-medium text-red-400 animate-pulse">
-              ← Ignore
+            <span className="text-[11px] md:text-sm font-bold text-gray-300 uppercase tracking-widest">
+              Swipe left to skip
             </span>
-            <div className="h-1 w-1 rounded-full bg-gray-300"></div>
-            <span className="text-sm font-medium text-green-500 animate-pulse">
-              Interested →
+            <div className="h-1.5 w-1.5 rounded-full bg-red-500"></div>
+            <span className="text-[11px] md:text-sm font-bold text-red-500 uppercase tracking-widest">
+              Swipe right to connect
             </span>
           </div>
         </div>
