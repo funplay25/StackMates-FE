@@ -172,9 +172,7 @@ const Profile = () => {
                     onChange={handleChange}
                     className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-500 transition-all text-sm text-slate-900 appearance-none cursor-pointer"
                   >
-                    <option value="" disabled>
-                      Select gender
-                    </option>
+                    <option disabled>Select gender</option>
                     <option value="male">Male</option>
                     <option value="female">Female</option>
                     <option value="others">Others</option>

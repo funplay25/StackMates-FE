@@ -35,7 +35,7 @@ const Connections = () => {
         <h1 className="font-black text-2xl md:text-3xl text-slate-800 tracking-tight">
           {connections.length === 0 ? "No Friends Yet" : "Your Connections"}
         </h1>
-        <p className="text-slate-500 text-sm mt-1">
+        <div className="text-slate-500 text-sm mt-1">
           {connections.length > 0 ? (
             <p>
               You have <span className="font-bold">{connections.length}</span>{" "}
@@ -44,7 +44,7 @@ const Connections = () => {
           ) : (
             "Time to start swiping!"
           )}
-        </p>
+        </div>
       </header>
 
       <div className="grid grid-cols-1 gap-3">
