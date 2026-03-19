@@ -1,11 +1,13 @@
 import axios from "axios";
 import { BE_BASE_URL } from "../utils/constants";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addConnections } from "../utils/connectionSlice";
 import Loading from "./Loading";
+import UserCardPreview from "./UserCardPreview";
 
 const Connections = () => {
+  const [selectedUser, setSelectedUser] = useState(null);
   const connections = useSelector((store) => store.connections);
   const dispatch = useDispatch();
 
@@ -31,6 +33,24 @@ const Connections = () => {
 
   return (
     <div className="mt-20 md:mt-24 px-4 pb-16 max-w-3xl mx-auto">
+      {selectedUser && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm bg-black/20"
+          onClick={() => setSelectedUser(null)}
+        >
+          <div className="relative" onClick={(e) => e.stopPropagation()}>
+            <button
+              className="absolute -top-3 -right-3 z-10 w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center text-slate-500 hover:text-red-500 transition-colors cursor-pointer"
+              onClick={() => setSelectedUser(null)}
+            >
+              ✕
+            </button>
+
+            <UserCardPreview user={selectedUser} />
+          </div>
+        </div>
+      )}
+
       <header className="mb-8 text-center sm:text-left">
         <h1 className="font-black text-2xl md:text-3xl text-slate-800 tracking-tight">
           {connections.length === 0 ? "No Friends Yet" : "Your Connections"}
@@ -77,7 +97,7 @@ const Connections = () => {
               <button
                 className="flex-1 sm:flex-none px-4 py-2.5 text-[11px] md:text-xs font-bold rounded-xl bg-slate-50 text-slate-500 hover:bg-slate-100 hover:text-slate-700 transition-all cursor-pointer"
                 onClick={() => {
-                  /* Navigate */
+                  setSelectedUser(user);
                 }}
               >
                 Profile
