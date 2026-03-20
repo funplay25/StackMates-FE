@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addConnections } from "../utils/connectionSlice";
 import Loading from "./Loading";
 import UserCardPreview from "./UserCardPreview";
+import { Link } from "react-router-dom";
 
 const Connections = () => {
   const [selectedUser, setSelectedUser] = useState(null);
@@ -80,7 +81,8 @@ const Connections = () => {
                   alt={`${user.firstName}'s profile`}
                   className="w-12 h-12 md:w-14 md:h-14 rounded-full object-cover object-top ring-2 ring-slate-50 group-hover:ring-red-100 transition-all"
                 />
-                <div className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-green-500 border-2 border-white rounded-full"></div>
+                {/* online status */}
+                {/* <div className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-green-500 border-2 border-white rounded-full"></div> */}
               </div>
 
               <div className="flex flex-col min-w-0">
@@ -103,27 +105,29 @@ const Connections = () => {
                 Profile
               </button>
 
-              <button
-                className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-5 py-2.5 text-[11px] md:text-xs font-bold rounded-xl bg-red-500 text-white hover:bg-red-600 shadow-sm shadow-red-100 transition-all active:scale-95 cursor-pointer"
-                onClick={() => {
-                  /* Open Chat */
-                }}
-              >
-                <svg
-                  className="w-3.5 h-3.5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+              <Link to={`/chat/${user._id}`}>
+                <button
+                  className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-5 py-2.5 text-[11px] md:text-xs font-bold rounded-xl bg-red-500 text-white hover:bg-red-600 shadow-sm shadow-red-100 transition-all active:scale-95 cursor-pointer"
+                  onClick={() => {
+                    /* Open Chat */
+                  }}
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2.5"
-                    d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
-                  />
-                </svg>
-                Message
-              </button>
+                  <svg
+                    className="w-3.5 h-3.5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2.5"
+                      d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                    />
+                  </svg>
+                  Message
+                </button>
+              </Link>
             </div>
           </div>
         ))}
