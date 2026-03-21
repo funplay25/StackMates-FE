@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState, useRef } from "react";
 import { BE_BASE_URL } from "../utils/constants";
 
-const UserCard = ({ persons }) => {
+const UserCard = ({ persons, onLoadMore }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   // isDragging is kept in state only to toggle transitions/cursors globally
   const [isDragging, setIsDragging] = useState(false);
@@ -123,7 +123,7 @@ const UserCard = ({ persons }) => {
             profiles.
           </p>
           <button
-            onClick={() => {}}
+            onClick={onLoadMore}
             className="w-full py-4 bg-red-500 hover:bg-red-600 text-white font-bold rounded-2xl shadow-lg shadow-red-200 transition-all active:scale-95 cursor-pointer"
           >
             Find more
