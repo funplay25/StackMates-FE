@@ -2,13 +2,21 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const feedSlice = createSlice({
   name: "feed",
-  initialState: null,
+  initialState: { data: [], page: 1 },
   reducers: {
-    addFeed: (state, action) => action.payload.data,
-    removeFeed: (state, action) => null,
+    addFeed: (state, action) => {
+      state.data.push(...action.payload.data);
+    },
+    removeFeed: (state) => {
+      state.data = [];
+      state.page = 1;
+    },
+    incrementPage: (state) => {
+      state.page += 1;
+    },
   },
 });
 
-export const { addFeed, removeFeed } = feedSlice.actions;
+export const { addFeed, removeFeed, incrementPage } = feedSlice.actions;
 
 export default feedSlice.reducer;
