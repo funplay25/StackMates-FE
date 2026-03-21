@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import createSocketConnection from "../utils/socket";
 import { useSelector } from "react-redux";
+import axios from "axios";
+import { BE_BASE_URL } from "../utils/constants";
 
 const Chat = () => {
   const { targetUserId } = useParams();
@@ -10,18 +12,38 @@ const Chat = () => {
   const [msgCollection, setMsgCollection] = useState([]);
   const userId = user?._id;
   const scrollRef = useRef();
+  const socketRef = useRef();
+
+  const fetchChatMessages = async () => {
+    const res = await axios.get(`${BE_BASE_URL}/chat/${targetUserId}`, {
+      withCredentials: true,
+    });
+
+    const msgArr = res.data.data.messages.map((msg) => {
+      return {
+        firstName: msg?.senderId?.firstName,
+        lastName: msg?.senderId?.lastName,
+        text: msg?.text,
+      };
+    });
+
+    setMsgCollection(msgArr);
+  };
+
+  useEffect(() => {
+    fetchChatMessages();
+  }, []);
 
   useEffect(() => {
     if (!userId) return;
     const socket = createSocketConnection();
+    socketRef.current = socket;
 
     socket.emit("joinChat", {
-      firstName: user?.firstName,
-      userId,
       targetUserId,
     });
 
-    socket.on("msgReceived", ({ firstName, text }) => {
+    socket.on("msgReceived", ({ firstName, lastName, text }) => {
       setMsgCollection((messages) => [
         ...messages,
         {
@@ -33,6 +55,7 @@ const Chat = () => {
 
     return () => {
       socket.disconnect();
+      scrollRef.current = null;
     };
   }, [userId, targetUserId]);
 
@@ -43,12 +66,10 @@ const Chat = () => {
   }, [msgCollection]);
 
   const sendMsg = () => {
-    const socket = createSocketConnection();
+    const socket = socketRef.current;
 
     if (newMsg.trim().length > 0) {
       socket.emit("sendMessage", {
-        firstName: user?.firstName,
-        userId,
         targetUserId,
         text: newMsg,
       });
@@ -85,7 +106,7 @@ const Chat = () => {
                 ) : (
                   <div className="flex flex-col gap-1 items-start">
                     <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-3">
-                      {msg.firstName}
+                      {msg.firstName} {msg.lastName}
                     </span>
                     <div className="max-w-[80%] p-4 bg-white border border-slate-100 rounded-2xl rounded-tl-none shadow-sm text-sm text-slate-700">
                       {msg.text}
