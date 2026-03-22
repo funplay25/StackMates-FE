@@ -61,7 +61,7 @@ const Requests = () => {
         {requests && requests.length > 0 ? (
           requests.map((user) => (
             <div
-              className="bg-white p-4 md:p-5 flex flex-col sm:flex-row items-center justify-between gap-4 md:gap-6 shadow-sm border border-slate-100 rounded-2xl hover:shadow-md transition-all duration-300 group"
+              className="bg-white p-3.5 md:p-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm border border-slate-100 rounded-2xl hover:border-red-100 hover:shadow-md transition-all duration-300 group"
               key={user._id}
             >
               <div className="flex items-center gap-4 w-full flex-1">
@@ -69,9 +69,10 @@ const Requests = () => {
                   <img
                     src={user?.fromUserId?.profileUrl}
                     alt="Profile"
-                    className="w-14 h-14 md:w-16 md:h-16 rounded-full object-cover object-top ring-4 ring-slate-50 group-hover:ring-red-50 transition-all"
+                    className="w-12 h-12 md:w-14 md:h-14 rounded-full object-cover object-top ring-2 ring-slate-50 group-hover:ring-red-100 transition-all"
                   />
-                  <div className="absolute bottom-0 right-0 w-4 h-4 bg-green-500 border-2 border-white rounded-full"></div>
+                  {/* online status */}
+                  {/* <div className="absolute bottom-0 right-0 w-4 h-4 bg-green-500 border-2 border-white rounded-full"></div> */}
                 </div>
 
                 <div className="flex flex-col min-w-0">
