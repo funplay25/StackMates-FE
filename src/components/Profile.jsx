@@ -6,16 +6,23 @@ import UserCardPreview from "./UserCardPreview";
 import Toast from "./Toast";
 import { addUser } from "../utils/userSlice";
 import Loading from "./Loading";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const user = useSelector((store) => store.user);
   const [formData, setFormData] = useState(null);
   const [showToast, setShowToast] = useState(null);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (user && !formData) {
-      setFormData({ ...user });
+      setFormData({
+        ...user,
+        skills: Array.isArray(user.skills)
+          ? user.skills.join(", ")
+          : user.skills || "",
+      });
     }
   }, [user, formData]);
 
@@ -54,6 +61,7 @@ const Profile = () => {
       dispatch(addUser(res.data));
 
       setShowToast({ message: "Profile updated", type: "success" });
+      navigate("/");
     } catch (err) {
       setShowToast({ message: "Couldn't update profile", type: "error" });
     }
