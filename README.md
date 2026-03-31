@@ -28,7 +28,7 @@ StackMates is a developer social platform that helps programmers find like-minde
 ### Installation
 
 ```bash
-git clone https://github.com/funplay25/StackMates-FE.git
+git clone https://github.com/pranav-dhole/StackMates-FE.git
 cd StackMates-FE
 npm install
 ```
@@ -64,7 +64,7 @@ src/
 
 ## Backend
 
-This is the frontend repository. The backend API lives at: https://github.com/funplay25/StackMates-BE
+This is the frontend repository. The backend API lives at: https://github.com/pranav-dhole/StackMates-BE
 
 ---
 
